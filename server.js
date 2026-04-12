@@ -2348,3 +2348,21 @@ server.listen(PORT, () => {
     console.log(`Server running at http://${host}:${PORT}/`);
     console.log('Ready to handle login requests and ticket creation!');
 });
+const express = require("express");
+const path = require("path");
+
+const app = express();
+
+// 👇 THIS serves your UI folder
+app.use(express.static(path.join(__dirname, "ui")));
+
+// 👇 THIS makes homepage load on "/"
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "ui", "homepage.html"));
+});
+
+// Render requires this
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
