@@ -1,0 +1,23 @@
+{
+  "name": "PostOffice-MIS",
+  "version": "1.0.0",
+  "description": "Post Office Management Information System",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon --watch . --ext js,html,css --exec node server.js",
+    "setup": "node db-setup.js",
+    "dev": "nodemon --watch . --ext js,html,css --exec node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mysql2": "^3.6.0",
+    "node-fetch": "^2.7.0",
+    "nodemailer": "^8.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

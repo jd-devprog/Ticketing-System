@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff - Post Office Ticketing System</title>
+    <link rel="icon" type="image/png" href="icon.png" sizes="64x64">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="stylesheet" href="/ui/css/staff.css?v=3">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Post Office</h2>
+                <p>MIS</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="nav-item active" data-panel="Tickets">Tickets</a></li>
+                    <li><a href="#" class="nav-item" data-panel="Workload">Workload</a></li>
+                    <li><a href="#" class="nav-item" data-panel="Accomplishments">Completed</a></li>
+
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <!-- Ticket View Modal -->
+        <div id="ticketViewModal" class="modal hidden" aria-hidden="true">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="ticketViewTitle">
+                <button class="modal-close" id="ticketViewClose" aria-label="Close">✕</button>
+                <h3 id="ticketViewTitle">Ticket Details</h3>
+                <div id="ticketViewBody" class="ticket-view-body">
+                    <!-- replicate create-ticket form layout in read-only mode -->
+                    <form id="ticketViewForm">
+                        <label>Ticket ID</label>
+                        <input type="text" id="viewTicketId" readonly>
+
+                        <label>Category</label>
+                        <input type="text" id="viewCategory" readonly>
+
+                        <div class="name-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="viewFirstName" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="viewLastName" readonly>
+                            </div>
+                        </div>
+
+                        <label>Email</label>
+                        <input type="text" id="viewEmail" readonly>
+
+                        <label>Problem Description</label>
+                        <textarea id="viewProblem" rows="4" readonly></textarea>
+
+                        <label>Branch</label>
+                        <input type="text" id="viewBranch" readonly>
+
+                        <label>Department</label>
+                        <input type="text" id="viewDepartment" readonly>
+
+                        <label>Accepted By</label>
+                        <input type="text" id="viewAcceptedBy" readonly>
+
+                        <label>Remarks</label>
+                        <textarea id="viewRemarks" rows="4" readonly></textarea>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <h1>Welcome to Management Information System</h1>
+                <div class="user-info">
+                    <span id="userEmail">user@gmail.com</span>
+                    <div class="profile">
+                        <button id="profileBtn" class="profile-btn" aria-haspopup="true" aria-expanded="false">
+                            <svg id="profileAvatar" class="avatar" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="12" fill="#003f8f" />
+                                <path fill="#fff" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </button>
+
+                        <div id="profileDropdown" class="profile-dropdown hidden" role="menu" aria-hidden="true">
+                            <div class="profile-section">
+                                <div class="profile-header">
+                                    <strong id="profileName">user@gmail.com</strong>
+                                    <small id="profileRole">Staff</small>
+                                </div>
+                                <hr class="dropdown-divider">
+                                <div class="dropdown-menu-items">
+                                    <button id="changePasswordBtn" class="dropdown-item">
+                                        <span>🔑</span> Change Password
+                                    </button>
+                                    
+                                    <div class="dropdown-divider"></div>
+                                    <button id="logoutMenuBtn" class="dropdown-item logout">
+                                        <span>🚪</span> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+        <div class="dashboard-content">
+            <!-- Stats Cards for staff overview (three-card summary) -->
+            <div class="stats-container" id="statsContainer">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #003f8f;">�</div>
+                    <div class="stat-info">
+                        <h3>Total Tickets</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #ffc107;">⏳</div>
+                    <div class="stat-info">
+                        <h3>Workload</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #28a745;">✓</div>
+                    <div class="stat-info">
+                        <h3>Completed</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tickets Panel -->
+            <div id="panel-tickets" class="panel">
+                <div class="panel-header">
+                    <h2>Tickets</h2>
+                </div>
+
+                <div class="table-section">
+                    <table class="tickets-table" id="ticketsTable">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Customer</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Workload Panel -->
+            <div id="panel-workload" class="panel hidden">
+                <div class="panel-header"><h2>My Workload</h2></div>
+                <div class="table-section">
+                    <table class="tickets-table" id="workloadTable">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Customer</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Accomplishments Panel -->
+            <div id="panel-accomplishments" class="panel hidden">
+                <div class="panel-header"><h2>Completed</h2></div>
+                <div class="table-section">
+                    <table class="tickets-table" id="accomplishmentsTable">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Customer</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Completed On</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div> <!-- end dashboard-content -->
+        </main>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Password</h2>
+                <button type="button" class="modal-close" onclick="document.getElementById('changePasswordModal').style.display='none'">&times;</button>
+            </div>
+            <form id="changePasswordForm">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password:</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="currentPassword" placeholder="Current Password" required>
+                        <span class="password-toggle" data-target="currentPassword">👁️</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password:</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="newPassword" placeholder="New Password" required>
+                        <span class="password-toggle" data-target="newPassword">👁️</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                        <span class="password-toggle" data-target="confirmPassword">👁️</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Change Password</button>
+                    <button type="button" class="btn-secondary" onclick="document.getElementById('changePasswordModal').style.display='none'">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reset Confirmation Modal (shared) -->
+    <div id="resetConfirmModal" class="modal hidden" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="resetConfirmTitle">
+            <button class="modal-close" id="resetConfirmClose" aria-label="Close">✕</button>
+            <div class="modal-header"><h2 id="resetConfirmTitle">Confirm Action</h2></div>
+            <p id="resetConfirmMessage">Are you sure?</p>
+            <div class="modal-actions" style="justify-content:flex-end; gap:10px; margin-top:15px;">
+                <button type="button" id="resetDeclineBtn" class="btn-secondary">Cancel</button>
+                <button type="button" id="resetAcceptBtn" class="btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remark Modal -->
+    <div id="remarkModal" class="modal hidden" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="remarkModalTitle">
+            <button class="modal-close" id="remarkClose" aria-label="Close">✕</button>
+            <h3 id="remarkModalTitle">Add Remark</h3>
+            <div id="remarkModalBody">
+                <form id="remarkForm">
+                    <label for="remarkText">Remark:</label>
+                    <textarea id="remarkText" rows="5" placeholder="Enter your remark here..." style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif;"></textarea>
+                    <div class="modal-actions" style="margin-top: 15px; display: flex; gap: 10px; justify-content: flex-end;">
+                        <button type="button" class="btn-secondary" id="remarkCancelBtn">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Remark</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/ui/js/staff.js?v=4"></script>
+    <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

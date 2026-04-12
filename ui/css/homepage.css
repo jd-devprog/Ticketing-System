@@ -1,0 +1,801 @@
+/* Copied and moved from ui/homepage.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #003f8f, #c4161c);
+}
+
+/* Main container */
+.container {
+    position: relative;
+    height: 100vh;
+}
+
+/* Left panel now covers the FULL screen */
+.left-panel {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #003f8f, #c4161c);
+    color: #ffffff;
+    padding: 40px;
+}
+
+.left-panel h1 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.left-panel p {
+    margin-top: 15px;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Right panel no longer takes 50% */
+.right-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 80px;
+    gap: 30px;
+}
+
+/* Top Navigation */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 20px;
+}
+
+.track-search {
+    display: flex;
+    align-items: center;
+}
+
+.track-search input {
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    width: 150px;
+}
+
+.track-search input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.track-search input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    border-bottom-color: #c4161c;
+    transform: translateY(-2px);
+}
+
+/* Login box (ONLY white area) */
+.login-box {
+    width: 320px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Title */
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #003f8f;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Form */
+.login-box label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.login-box input:focus {
+    border-color: #003f8f;
+    outline: none;
+}
+
+/* Button */
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background: #c4161c;
+    border: none;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background: #a51217;
+}
+
+/* Password row and toggle */
+.password-row {
+    position: relative;
+}
+
+.password-row input {
+    padding-right: 52px;
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 8px;
+    top: 35%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.toggle-password:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,63,143,0.12);
+}
+
+.toggle-password {
+    opacity: 0.65;
+    transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+.toggle-password:focus {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.02);
+}
+
+/* Hide browser-native password reveal icons (common vendor pseudo-elements) */
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-credentials-auto-fill-container,
+input::-webkit-credentials-auto-fill-button::marker,
+input::-webkit-credentials-auto-fill-button::after,
+input::-webkit-credentials-auto-fill-button::before,
+input::-webkit-password-toggle-button,
+input::-webkit-textfield-decoration-container {
+    display: none !important;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.toggle-password {
+    padding: 6px;
+    min-width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Error and helper states */
+.field-error {
+    color: #c4161c;
+    font-size: 13px;
+    margin-top: -12px;
+    margin-bottom: 12px;
+    min-height: 18px;
+}
+
+.form-error {
+    color: #c4161c;
+    font-size: 13px;
+    margin-bottom: 12px;
+    min-height: 18px;
+}
+
+.forgot-link {
+    display: inline-block;
+    color: #003f8f;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.signin-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.signin-btn.loading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.signin-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Modal Styles */
+.modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 90%;
+    /* increase modal width so ticket form isn't cramped */
+    max-width: 760px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+    position: relative;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-screen {
+    padding: 28px;
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* make ticket modal drawers a bit narrower so the sign-in screen isn't so wide */
+#ticketModal .modal-content {
+    /* limit overall width for ticket-related screens */
+    max-width: 420px;
+}
+
+#ticketModal .modal-screen form {
+    /* ensure forms inside the ticket modal also shrink appropriately */
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Prevent the modal from stretching full-height and allow scrolling if content is tall */
+.modal-content {
+    margin: 24px 16px; /* give vertical breathing room */
+    max-height: calc(100vh - 80px);
+    overflow: auto;
+    /* subtle 3D effect */
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.12);
+    transform: perspective(900px) translateZ(0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.modal-content:hover {
+    transform: perspective(900px) translateY(-6px) rotateX(0.5deg) scale(1.005);
+}
+
+/* Constrain form controls so only the panel expands, not inputs/selects */
+.modal-screen form {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-screen.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Ensure close button is visible and accessible (restore if hidden) */
+.modal-close {
+    display: block;
+    z-index: 10;
+    opacity: 1;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+/* Gmail Login Screen */
+.gmail-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.gmail-header h2 {
+    color: #003f8f;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.gmail-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Google Sign-In Button Container */
+.google-signin-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+/* OR Divider */
+.or-divider {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+    color: #ccc;
+}
+
+.or-divider::before,
+.or-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+}
+
+.or-divider span {
+    padding: 0 12px;
+    color: #999;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Ticket Header */
+.ticket-header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+
+.ticket-header h2 {
+    color: #003f8f;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.ticket-header p {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.ticket-header span {
+    color: #003f8f;
+    font-weight: 600;
+}
+
+/* Name Fields Row */
+.name-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.category-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #003f8f;
+    box-shadow: 0 0 0 3px rgba(0, 63, 143, 0.1);
+}
+
+/* Modal Form Styles */
+#gmailLoginForm,
+#ticketForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.modal-screen label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.modal-screen input,
+.modal-screen textarea,
+.modal-screen select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+}
+
+.modal-screen input:focus,
+.modal-screen textarea:focus,
+.modal-screen select:focus {
+    outline: none;
+    border-color: #003f8f;
+    box-shadow: 0 0 0 3px rgba(0, 63, 143, 0.1);
+}
+
+.modal-screen textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn-primary {
+    padding: 14px;
+    background: #003f8f;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: #0052b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 63, 143, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.signin-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.modal-note {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+/* Success Modal Styles */
+#ticketSuccessModal .modal-content {
+    max-width: 420px;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    border-radius: 12px;
+    padding: 15px;
+}
+#ticketSuccessModal .modal-screen {
+    padding: 15px;
+}
+#successOkBtn {
+    display: inline-block;
+    margin: 18px auto 0 auto;
+    min-width: 110px;
+}
+.success-header {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+#ticketSuccessModal .success-content {
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.success-header h2 {
+    color: #003f8f;
+    font-size: 24px;
+    margin: 0;
+}
+
+.success-content {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.success-content p:first-child {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.ticket-info {
+    background: #f9f9f9;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border-left: 4px solid #003f8f;
+    text-align: left;
+}
+
+.ticket-info strong {
+    color: #003f8f;
+    display: inline-block;
+    min-width: 100px;
+}
+
+.ticket-info span {
+    color: #333;
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.success-note {
+    color: #999;
+    font-size: 13px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .right-panel {
+        position: static;
+        justify-content: center;
+        padding: 40px 0;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .top-nav {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 0;
+    }
+
+    .nav-link {
+        font-size: 14px;
+    }
+
+    .login-box {
+        width: 90%;
+        max-width: 360px;
+    }
+}
+
+/* Forgot Password Modal (small adjustments) */
+#forgotModal .modal-content {
+    max-width: 420px;
+    width: 90%;
+    padding: 22px;
+}
+
+#forgotModal .modal-screen {
+    padding: 18px;
+}
+
+#forgotFormMessage {
+    color: #003f8f;
+    font-size: 14px;
+    margin-bottom: 12px;
+    min-height: 20px;
+}
+
+#forgotSubmit {
+    width: 100%;
+}
+
+/* Verification Loading Spinner */
+.verification-spinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(0, 63, 143, 0.2);
+    border-top-color: #003f8f;
+    border-radius: 50%;
+    animation: verification-spin 1s linear infinite;
+}
+
+@keyframes verification-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Verification loading container */
+.verification-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 40px 20px;
+}
+
+.verification-loading p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Track result styles */
+.track-result {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.track-result h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.ticket-detail {
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-detail strong {
+    color: #555;
+    flex: 0 0 140px;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.ticket-detail span {
+    color: #333;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

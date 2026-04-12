@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Office Ticketing System</title>
+    <link rel="icon" type="image/png" href="icon.png" sizes="64x64">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="stylesheet" href="css/homepage.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <h1>Management Information System</h1>
+            <p>Quezon City Central Post Office</p>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="top-nav">
+                <button id="createTicketBtn" class="nav-link">Create a Ticket</button>
+                <form id="trackForm" class="track-search">
+                    <input type="text" id="trackTicketId" placeholder="Enter Ticket ID" required>
+                </form>
+            </div>
+            <div class="login-box">
+                <h2>Login</h2>
+
+                <form id="loginForm" novalidate>
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email" name="email" placeholder="Enter your email" required aria-describedby="loginEmailError" autocomplete="email">
+                    <div id="loginEmailError" class="field-error" aria-hidden="true"></div>
+
+                    <label for="loginPassword">Password</label>
+                    <div class="password-row">
+                        <input id="loginPassword" type="password" name="password" placeholder="Enter your password" required aria-describedby="loginPasswordError" autocomplete="current-password">
+                        <span id="togglePassword" class="toggle-password" role="button" tabindex="0" aria-pressed="false" aria-label="Show password">
+                            <!-- Eye icon (show) -->
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path fill="#003f8f" d="M12 5c-5 0-9.27 3.11-11 7 1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"></path>
+                                <circle fill="#003f8f" cx="12" cy="12" r="2.5"></circle>
+                            </svg>
+                        </span>
+                    </div>
+                    <div id="loginPasswordError" class="field-error" aria-hidden="true"></div>
+
+                    <div id="loginFormError" class="form-error" aria-live="polite"></div>
+
+                    <button type="submit" id="signInBtn" class="signin-btn">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket Modal -->
+    <div id="ticketModal" class="modal hidden">
+        <div class="modal-content">
+            <!-- Gmail Login Screen -->
+            <div id="gmailLoginScreen" class="modal-screen">
+                <button class="modal-close">&times;</button>
+                <div class="gmail-header">
+                    <h2>Sign in with Gmail</h2>
+                </div>
+                
+                <!-- Google Sign-In Button -->
+                <div id="googleSignInDiv" class="google-signin-container"></div>
+                
+                
+                <!-- Manual Email Entry -->
+                <form id="gmailLoginForm">
+                    <label>Gmail Address</label>
+                    <input type="email" id="gmailEmail" placeholder="your.email@gmail.com" required>
+                    <button type="submit" class="btn-primary">Continue</button>
+                </form>
+                <p class="modal-note">Only @gmail.com accounts are supported</p>
+            </div>
+
+            <!-- Email Verification Screen -->
+            <div id="verificationScreen" class="modal-screen hidden">
+                <button class="modal-close">&times;</button>
+                <div class="verification-header">
+                    <h2>Verify Your Email</h2>
+                    <p>We sent a 6-digit code to: <span id="verifyEmail"></span></p>
+                </div>
+                <form id="verificationForm">
+                    <label>Verification Code</label>
+                    <input type="text" id="verificationCode" placeholder="000000" maxlength="6" inputmode="numeric" required autocomplete="off">
+                    <div id="verificationError" class="field-error" aria-hidden="true"></div>
+                    <p class="modal-note">Code expires in 5 minutes</p>
+                    <button type="submit" class="btn-primary">Verify Email</button>
+                    <button type="button" id="resendCodeBtn" class="btn-secondary">Resend Code</button>
+                </form>
+            </div>
+
+            <!-- Ticket Creation Screen -->
+            <div id="ticketFormScreen" class="modal-screen hidden">
+                <button class="modal-close">&times;</button>
+                <div class="ticket-header">
+                    <h2>Create a Support Ticket</h2>
+                    <p>Logged in as: <span id="loggedInEmail"></span></p>
+                </div>
+                <form id="ticketForm">
+                    <!-- Name Fields (Pre-filled from email) -->
+                    <div class="name-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" id="firstName" placeholder="First name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" id="lastName" placeholder="Last name" required>
+                        </div>
+                    </div>
+
+                    <!-- main/sub concern side-by-side just before description -->
+                    <div class="category-row">
+                        <div class="form-group">
+                            <label>Main Concern *</label>
+                            <select id="mainConcern" required>
+                                <option value="">Select a main category...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sub Concern *</label>
+                            <select id="subConcern" required disabled>
+                                <option value="">Select a sub category...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label>Describe Your Problem *</label>
+                    <textarea id="problemDescription" placeholder="Please explain your issue in detail..." rows="5" required></textarea>
+
+                    <!-- Restored Branch / Department dropdowns -->
+                    <label>Branch *</label>
+                    <select id="branchSelect" required>
+                        <option value="">Select a branch...</option>
+                    </select>
+
+                    <label>Department *</label>
+                    <select id="departmentSelect" required disabled>
+                        <option value="">Select a department...</option>
+                    </select>
+
+                    <button type="submit" class="btn-primary">Submit Ticket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Track Ticket Modal -->
+    <div id="trackModal" class="modal hidden">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="trackTitle">
+            <button class="modal-close">&times;</button>
+            <div class="modal-screen">
+                <h2 id="trackTitle">Ticket Details</h2>
+                <div id="trackResult" class="track-result hidden">
+                    <div class="ticket-detail">
+                        <strong>Ticket ID:</strong> <span id="resultTicketId"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Customer Name:</strong> <span id="resultCustomerName"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Email:</strong> <span id="resultEmail"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Branch:</strong> <span id="resultBranch"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Department:</strong> <span id="resultDepartment"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Category:</strong> <span id="resultCategory"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Description:</strong> <span id="resultDescription"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Status:</strong> <span id="resultStatus"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Accepted By:</strong> <span id="resultAcceptedBy"></span>
+                    </div>
+                    <div class="ticket-detail">
+                        <strong>Created At:</strong> <span id="resultCreatedAt"></span>
+                    </div>
+                </div>
+                <div id="trackError" class="field-error hidden" aria-hidden="true"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket Success Modal -->
+    <div id="ticketSuccessModal" class="modal hidden">
+        <div class="modal-content"> 
+            <button class="modal-close">&times;</button>
+            <div class="modal-screen">
+                <div class="success-header">
+                    <h2>✓ Ticket Created Successfully!</h2>
+                </div>
+                <div id="successContent" class="success-content">
+                    <p>Your ticket has been submitted successfully.</p>
+                    <div class="ticket-info">
+                        <strong>Ticket ID:</strong> <span id="successTicketId"></span>
+                    </div>
+                    <div class="ticket-info">
+                        <strong>Email:</strong> <span id="successEmail"></span>
+                    </div>
+                    <p class="success-note">A confirmation email has been sent to your email address.</p>
+                </div>
+                <button id="successOkBtn" class="btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Sign-In Script -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- load main homepage logic (includes ticket creation and track ticket) -->
+    <script src="/ui/js/homepage.js"></script>
+</body>
+</html>
