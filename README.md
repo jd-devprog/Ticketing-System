@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Post Office Management Information System
 
 A modern web-based ticket management system for post office operations using Node.js and MySQL.
@@ -217,3 +218,7 @@ timestamp TIMESTAMP
 ## License
 
 MIT
+=======
+# Ticketing-System
+PhlPost Ticketing System
+>>>>>>> af8e24ad841acb8f17e99bfe2ad86976ac64bed0
