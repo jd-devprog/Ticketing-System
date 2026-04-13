@@ -153,7 +153,12 @@ function getDepartmentFromCategory(mainCategory) {
 }
 
 const app = express();
-    // Start the server
+app.use(express.static(path.join(__dirname, 'ui')));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
+
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     const host = process.env.HOST || 'localhost';
