@@ -131,7 +131,7 @@
         params.append('email', email);
         params.append('password', password);
 
-        fetch('/php/login.php', {
+        fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

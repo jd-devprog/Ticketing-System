@@ -23,6 +23,10 @@
         "/^mv ui/homepage\\.html ui/index\\.html$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^\\$content = Get-Content server\\.js; \\$content = \\$content\\[0\\.\\.151\\] \\+ \\$content\\[169\\.\\.\\(\\$content\\.Length-1\\)\\]; \\$content \\| Set-Content server\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
