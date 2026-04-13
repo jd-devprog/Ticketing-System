@@ -154,6 +154,7 @@ function getDepartmentFromCategory(mainCategory) {
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'ui')));
+app.use('/ui', express.static(path.join(__dirname, 'ui')));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
