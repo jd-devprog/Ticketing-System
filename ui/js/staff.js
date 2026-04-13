@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     if (!currentUser || !currentUser.email) {
         // not logged in, redirect to homepage
-        window.location.href = '/ui/homepage.html';
+        window.location.href = '/ui/index.html';
         return;
     }
     
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         logoutBtn.addEventListener('click', () => {
             window.localStorage.removeItem('user');
             // navigate back to homepage served by Node
-            window.location.href = '/ui/homepage.html';
+            window.location.href = '/ui/index.html';
         });
     }
 

@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             window.localStorage.removeItem('user');
-            window.location.href = 'http://localhost:8000/ui/homepage.html';
+            window.location.href = 'http://localhost:8000/ui/index.html';
         });
     }
 

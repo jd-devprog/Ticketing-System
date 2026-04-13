@@ -265,7 +265,7 @@ FUTURE IMPROVEMENT:
 | Database schema | ✅ Added | `isVerified` column in `users` |
 | Code generation | ✅ Working | Server: `/api/send-verification-code` |
 | Code verification | ✅ Working | Server: `/api/verify-email` |
-| Frontend screens | ✅ Ready | `ui/homepage.html` + `ui/homepage.js` |
+| Frontend screens | ✅ Ready | `ui/index.html` + `ui/homepage.js` |
 | Email sending | 🔄 Optional | `config.js` + nodemailer |
 | Test user setup | ✅ Ready | `admin@example.com` (unverified) |
 | Documentation | ✅ Complete | 3 guide files included |

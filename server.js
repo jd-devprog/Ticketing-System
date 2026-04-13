@@ -197,7 +197,7 @@ const server = http.createServer(async (req, res) => {
 
     // Serve homepage at root
     if (pathname === '/' || pathname === '') {
-        serveFile('/ui/homepage.html', res);
+        serveFile('/ui/index.html', res);
         return;
     }
 

@@ -117,7 +117,7 @@ Once comfortable with the flow:
    - Login handler now checks `isVerified` status
    - Returns special response if verification needed
 
-4. **ui/homepage.html**
+4. **ui/index.html**
    - Added verification screen modal
    - Code input field with validation
    - Resend code button

@@ -19,6 +19,10 @@
         "/^node -e \"const bcrypt = require\\('bcryptjs'\\); const hash = '\\$2a\\$10\\$XTOq3nlebalQjLFkMERP5uD9\\.bK8vA\\.Gzyj5pvp2Zsr0SkJccPIl'; console\\.log\\('Password123! matches hash:', bcrypt\\.compareSync\\('Password123!', hash\\)\\); console\\.log\\('WrongPassword matches hash:', bcrypt\\.compareSync\\('WrongPassword', hash\\)\\);\"$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^mv ui/homepage\\.html ui/index\\.html$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }

@@ -84,7 +84,7 @@ PostOffice/
 │   ├── dashboard.html     # Main dashboard page
 │   ├── dashboard.js       # Dashboard logic (API-driven)
 │   ├── dashboard.css      # Dashboard styles
-│   ├── homepage.html      # Login/homepage
+│   ├── index.html      # Login/homepage
 │   ├── homepage.js        # Homepage logic
 │   └── homepage.css       # Homepage styles
 └── php/
