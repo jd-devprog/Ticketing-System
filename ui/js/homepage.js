@@ -126,17 +126,15 @@
 
         setButtonLoading(true);
 
-        // Send login request to backend
-        const params = new URLSearchParams();
-        params.append('email', email);
-        params.append('password', password);
-
-        fetch('/php/login.php', {
+        fetch('/api/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
-            body: params.toString()
+            body: JSON.stringify({
+                email,
+                password
+            })
         })
             .then(async response => {
                 const text = await response.text();

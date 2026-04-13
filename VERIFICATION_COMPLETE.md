@@ -228,10 +228,12 @@ Response:
 
 ### Login with Verification
 ```
-POST /php/login.php
-Content-Type: application/x-www-form-urlencoded
+POST /api/login
+Content-Type: application/json
 
-email=user@example.com&password=password123
+{
+  "email": "user@example.com",
+  "password": "password123"
 
 Response (if unverified):
 {

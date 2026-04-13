@@ -126,17 +126,16 @@
 
         setButtonLoading(true);
 
-        // Send login request to backend
-        const params = new URLSearchParams();
-        params.append('email', email);
-        params.append('password', password);
-
+        // Send login request to backend with JSON payload
         fetch('/api/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
-            body: params.toString()
+            body: JSON.stringify({
+                email,
+                password
+            })
         })
             .then(async response => {
                 const text = await response.text();
@@ -662,13 +661,10 @@ if(gmailLoginForm) {
         forgotSubmit.disabled = true;
         forgotSubmit.textContent = 'Sending...';
 
-        const params = new URLSearchParams();
-        params.append('email', email);
-
-        fetch('php/forgot_password.php', {
+        fetch('/api/forgot-password', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params.toString()
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
         })
         .then(resp => resp.json())
         .then(data => {

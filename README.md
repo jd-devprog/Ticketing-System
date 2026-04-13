@@ -87,9 +87,6 @@ PostOffice/
 │   ├── index.html      # Login/homepage
 │   ├── homepage.js        # Homepage logic
 │   └── homepage.css       # Homepage styles
-└── php/
-    ├── login.php
-    └── forgot_password.php
 ```
 
 ## API Endpoints
@@ -138,7 +135,8 @@ UI additions:
 > Additional events can be logged by calling the `/api/audit` endpoint. The `ipAddress` is captured from the incoming request, giving administrators visibility into where each action originated.
 
 ### Authentication
-- `POST /php/login.php` - User login
+- `POST /api/login` - User login
+- `POST /api/forgot-password` - Request password reset email
 
 ## Database Schema
 

@@ -153,8 +153,102 @@ function getDepartmentFromCategory(mainCategory) {
 }
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'ui')));
 app.use('/ui', express.static(path.join(__dirname, 'ui')));
+
+app.post('/api/login', async (req, res) => {
+    try {
+        const email = (req.body.email || '').trim().toLowerCase();
+        const password = req.body.password || '';
+
+        if (!email || !password) {
+            return res.status(400).json({ success: false, message: 'Email and password are required' });
+        }
+
+        const connection = await pool.getConnection();
+        try {
+            const [rows] = await connection.execute(
+                'SELECT id, email, password, displayName, role, department, isVerified FROM users WHERE LOWER(email) = ? LIMIT 1',
+                [email]
+            );
+
+            if (!rows || rows.length === 0) {
+                return res.status(401).json({ success: false, message: 'Invalid credentials' });
+            }
+
+            const user = rows[0];
+            const stored = user.password || '';
+            const looksHashed = stored.startsWith('$2a$') || stored.startsWith('$2b$') || stored.startsWith('$2y$') || stored.startsWith('$2$');
+            let match = false;
+
+            if (looksHashed) {
+                match = await bcrypt.compare(password, stored);
+            } else if (password === stored) {
+                match = true;
+                try {
+                    const hashed = await bcrypt.hash(password, 10);
+                    await connection.execute('UPDATE users SET password = ? WHERE id = ?', [hashed, user.id]);
+                } catch (rehashError) {
+                    console.warn('Failed to rehash legacy password for', email, rehashError);
+                }
+            }
+
+            if (!match) {
+                return res.status(401).json({ success: false, message: 'Invalid credentials' });
+            }
+
+            if (!user.isVerified) {
+                return res.json({
+                    success: true,
+                    requiresVerification: true,
+                    message: 'Email verification required',
+                    user: { id: user.id, email: user.email, department: user.department }
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: 'Login successful',
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    displayName: user.displayName,
+                    role: user.role,
+                    department: user.department
+                }
+            });
+        } finally {
+            connection.release();
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        return res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+app.post('/api/forgot-password', async (req, res) => {
+    try {
+        const email = (req.body.email || '').trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ success: false, message: 'Please provide a valid email address.' });
+        }
+
+        // In a real app this would verify the user and send a reset email.
+        // Here we keep the same generic success behavior as the old PHP endpoint.
+        return res.json({
+            success: true,
+            message: 'If that email is registered, a password reset link has been sent.'
+        });
+    } catch (error) {
+        console.error('Forgot password error:', error);
+        return res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
