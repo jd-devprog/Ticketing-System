@@ -2,17 +2,29 @@ const http = require('http');
 const url = require('url');
 const querystring = require('querystring');
 const bcrypt = require('bcryptjs');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const express = require('express');
-const { dbConfig, emailConfig } = require('./config');
+const { emailConfig } = require('./config');
 
-// Create connection pool
-const pool = mysql.createPool(dbConfig);
-console.log('MySQL connection pool created');
-console.log(`Connecting to: ${dbConfig.host}/${dbConfig.database}`);
+// Create database connection
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
+
+db.connect((err) => {
+    if (err) {
+        console.error('MySQL connection error:', err);
+        return;
+    }
+    console.log('MySQL connection established');
+    console.log(`Connected to database: ${process.env.DB_NAME}`);
+});
 
 // In-memory storage for verification codes (in production, use Redis or database)
 const verificationCodes = {};
